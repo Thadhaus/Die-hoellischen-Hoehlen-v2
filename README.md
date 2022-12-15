@@ -1,5 +1,23 @@
-# Höllische Höhlen
+# Höllische Höhlen v2
 Erkunde die Höhlen! - Explore the caves!
+Neu: Mit Errungenschaften. New: With achievements.
+
+Laut einem Artikel in der c't 26/2022 Seite 140ff braucht ein Spiel heute
+Errungenschaften, auf Englisch achievements.
+
+```
+Die Welt der Achievements ist komplex. Was da so unscheinbar am Bildschirmrand
+für einige Sekunden aufploppt, geht an manchen spurlos vorbei, fasziniert andere
+und treibt einige wenige zu zwanghaftem Sammelverhalten. Errungenschaften
+werden von vielen aus der Gaming-Community inzwischen als Bestandteil eines
+Games erwartet, manchmal sogar vorausgesetzt. Gleichzeitig halten Spiele damit
+kleine Überraschungen und Belohnungen für die Fans bereit oder begeistern sie sogar
+für einen ganz neuen Spielstil. So unterschiedlich einzelne Achievements sind, so
+unterschiedlich ist der Blick darauf. Eins aber bleibt davon unberührt: Sie sind aus
+der Welt der modernen Spiele nicht mehr wegzudenken.
+```
+
+Also gibt es in dieser Version jetzt prototypisch achievements :-)
 
 This is a fun textadventure to demonstrate a generated world.
 Find it on [repl.it](https://replit.com/@GeduldigeBirne/Die-hollischen-Hohlen#main.py)
