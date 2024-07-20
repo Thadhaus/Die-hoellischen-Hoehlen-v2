@@ -17,7 +17,8 @@ unterschiedlich ist der Blick darauf. Eins aber bleibt davon unberührt: Sie sin
 der Welt der modernen Spiele nicht mehr wegzudenken.
 ```
 
-Also gibt es in dieser Version jetzt prototypisch achievements :-)
+~Also gibt es in dieser Version jetzt prototypisch achievements :-)~
+Bislang fehlen in dieser Version noch alle Achivements.
 
 This is a fun textadventure to demonstrate a generated world.
 Find it on [repl.it](https://replit.com/@GeduldigeBirne/Die-hollischen-Hohlen#main.py)
