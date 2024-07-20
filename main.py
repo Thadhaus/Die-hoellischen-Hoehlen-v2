@@ -196,11 +196,11 @@ look_around = raumbiome # billiger 'hack', um überhaupt etwas in 'look_around' 
 # Reiner Zufall kann aber zu doofen Lösungen führen, deshalb ist hier
 # eine zufällige Auswahl aus einer Liste möglicher Starträume die Lösung
 startraeume = raumliste  ## [ 0, 9, 10, 18 ]
-current_room = startraeume[random.choice(startraeume)]
+current_room = random.choice(startraeume)
 # Put in the number of the final room
-final_room = raumliste[random.choice(raumliste)]
+final_room = random.choice(raumliste)
 while final_room == current_room:
-    final_room = raumliste[random.choice(raumliste)]
+    final_room = random.choice(raumliste)
 
 # ------------------------------------------------------------
 # Code to move around the map
@@ -213,7 +213,7 @@ usage()     # Kurze Anleitung ausgeben
 while( current_room is not None ):
     # Describe the current room only if a change of room has happened
     if raumwechsel_erfolgt:
-        print(f"\nDu befindest dich hier: {description[current_room]}",end='')
+        print(f"\nDu befindest dich hier: {description[current_room]} ",end='')
     else:
         raumwechsel_erfolgt = True
     hungerstatus = hungerstatus - 1
