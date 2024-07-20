@@ -94,8 +94,8 @@ def usage():
         if wort == "tp" or wort == 'teleport':
             pass
         else:
-            print (f"{wort} ", end="")
-    print ("\n\n\tViel Spaß\n")
+            print (f"'{wort}' ", end="")
+    print ("\n\nHave fun!\n")
 
 def generate_graphviz_file():
   import os
@@ -213,7 +213,7 @@ usage()     # Kurze Anleitung ausgeben
 while( current_room is not None ):
     # Describe the current room only if a change of room has happened
     if raumwechsel_erfolgt:
-        print(f"\nDu befindest dich hier: {description[current_room]} ",end='')
+        print(f"\nDu befindest dich hier: {description[current_room]}. ",end='')
     else:
         raumwechsel_erfolgt = True
     hungerstatus = hungerstatus - 1
