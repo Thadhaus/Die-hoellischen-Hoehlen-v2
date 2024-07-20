@@ -5,7 +5,9 @@
 # Umgebaute Version von Ravenswood Manor. Hier ist kein Haus mehr,
 # sondern ein generiertes Set von Höhlen.
 
-import time, sys, random
+import random
+import sys
+import time
 
 # Diese Funktion prüft, ob man einen Schlüssel für den Raum hat.
 # Zuerst einmal fragt sie den Spieler höflich, das reicht zum Testen.
@@ -28,14 +30,14 @@ def take(raum):
     ding = input("Was möchtest du nehmen? ").lower().rstrip()
     anzahl,zeug = rauminhalt[raum].split(' ',1)
     if ding == zeug:
-        print ("Jedes der {} {} ist zu schwer zum Mitnehmen".format(anzahl,zeug))
+        print (f"Jedes der {anzahl} {zeug} ist zu schwer zum Mitnehmen")
         gefunden = True
         ''' man sollte etwas essen können '''
         if zeug == 'lichen' and int(anzahl) > 0:
             ''' außer Flechten gibt es nichts essbares in diesen Höhlen '''
             hungerstatus += random.randint(7,24)
             ''' die Flechten werden weniger '''
-            rauminhalt[raum] = "{} {}".format(int(anzahl)-1,zeug)
+            rauminhalt[raum] = f"{int(anzahl)-1} {zeug}"
     if ( gefunden == False ):
         print ("Ich sehe hier kein %s" % (ding) )
     return False
@@ -70,8 +72,7 @@ def pray():
 # Zur Zeit ist nur das Biom in 'look_around' und der Rauminhalt ist
 # lediglich generiert
 def zeige_rauminhalt():
-    inhalt = rauminhalt[current_room]
-    print ( inhalt )
+    print(rauminhalt[current_room])
 
 # Man kann das Spiel jederzeit verlassen.
 def quit():
@@ -93,7 +94,7 @@ def usage():
         if wort == "tp" or wort == 'teleport':
             pass
         else:
-            print ("{} ".format(wort),end="")
+            print (f"{wort} ", end="")
     print ("\n\n\tViel Spaß\n")
 
 def generate_graphviz_file():
@@ -114,27 +115,28 @@ def generate_graphviz_file():
       os.system(f"rm -f {wunschdatei}")
     
 
-    # Where can I go from each direction?
+# Where can I go from each direction?
 allowed_directions = ["quit", "w", "a", "s", "d", "up", "down",
     "go north", "go south", "go east", "go west", "tp", 'teleport',
     "go up", "go down", "look", "take", "pray", "map"]
 
 # Zufällig generierte Höhlen in fast beliebiger Zahl und Menge
-# Begrenzend ist die Zahl der nutzbaren Zeichen, aber man darf
-# UTF-8-Zeichen verwenden, wenn man möchte
+# Begrenzend ist bei dieser Methode die Zahl der nutzbaren
+# Zeichen. Man kommt mit UTF-8-Zeichen sehr weit, wenn man möchte. Das
+# ist aber nicht die einzige und auch nicht die eleganteste Lösung für
+# viele generierte Raumnamen.
 raumliste = list('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789') # 62 Räume billig erzeugt
 
+'''Hier werden die Verbindungen der Räume in der Raumliste zufällig
+verbunden, mit einer gewissen Wahrscheinlichkeit, damit es nicht
+zuviele Verbindungen gibt.  Notfalls - wenn es keinen Ausweg gibt -
+kann der Spieler mit der Funktion 'pray' beten, um ein neues Set
+Verbindungen zu erzeugen.
+
 '''
-Hier werden die Verbindungen der Räume in der Raumliste
-zufällig verbunden, mit einer gewissen Wahrscheinlichkeit,
-damit es nicht zuviele Verbindungen gibt.
-Notfalls - wenn es keinen Ausweg gibt - kann der Spieler
-beten 'pray', um ein neues Set Verbindungen zu erzeugen
-'''
-# Was mir gut gefallen hat, ist die Idee, die speziellen Räume
-# aus der Raumliste zu nehmen, bevor man wilde zufällige Dinge
-# generiert, und anschließend die speziellen Räume wieder gezielt
-# einzufügen.
+# Was mir gut gefallen hat, ist die Idee, die speziellen Räume aus der
+# Raumliste zu nehmen, bevor man wilde zufällige Dinge generiert, und
+# anschließend die speziellen Räume wieder gezielt einzufügen.
 def generiere_ziel():
     if random.random() > 0.70:  # 30% Wahrscheinlichkeit reicht bei 7 Richtungen
         return raumliste[random.randrange(len(raumliste))]
@@ -150,6 +152,7 @@ teleport = {}
 upstairs = {}
 downstairs = {}
 
+# For debugging you may write out all the generated dictionaries
 def verbindungen_erzeugen():
     for raum in raumliste:
         for richtung in east, west, north, south, upstairs, downstairs, teleport:
@@ -164,7 +167,7 @@ def verbindungen_erzeugen():
     datei = open (''.join(('Hoelle-Karten/',str(time.time()),'.py')), "w")
     nummer = 0
     for richtung in east, west, north, south, upstairs, downstairs, teleport:
-        datei.write("{} = ".format(richtungsname[nummer]))
+        datei.write(f"{richtungsname[nummer]} = ")
         nummer += 1
         datei.write(str(richtung))
         datei.write("\n")
@@ -174,7 +177,8 @@ def verbindungen_erzeugen():
     
 verbindungen_erzeugen()
 
-# Put the directions into a compass dictionary
+# Put the directions into a compass dictionary, here with lots of
+# alias names from other variants of this game
 compass = { "w": north, "a": west, "s": south, "d": east, "up": upstairs, "down": downstairs,
         "go north": north, "go south": south, "go east": east, "go west": west,
         "go up": upstairs, "go down": downstairs, "tp": teleport, "teleport": teleport }
@@ -192,11 +196,11 @@ look_around = raumbiome # billiger 'hack', um überhaupt etwas in 'look_around' 
 # Reiner Zufall kann aber zu doofen Lösungen führen, deshalb ist hier
 # eine zufällige Auswahl aus einer Liste möglicher Starträume die Lösung
 startraeume = raumliste  ## [ 0, 9, 10, 18 ]
-current_room = startraeume[random.randrange(len(startraeume))]
+current_room = startraeume[random.choice(startraeume)]
 # Put in the number of the final room
-final_room = raumliste[random.randrange(len(raumliste))]
+final_room = raumliste[random.choice(raumliste)]
 while final_room == current_room:
-    final_room = raumliste[random.randrange(len(raumliste))]
+    final_room = raumliste[random.choice(raumliste)]
 
 # ------------------------------------------------------------
 # Code to move around the map
@@ -207,27 +211,26 @@ raumwechsel_erfolgt = True
 usage()     # Kurze Anleitung ausgeben
 # Keep asking them which direction to go in
 while( current_room is not None ):
-    # Describe the current room
+    # Describe the current room only if a change of room has happened
     if raumwechsel_erfolgt:
-        print ( "\nDu befindest dich hier: {}. ".format(description[current_room]),end='')
+        print(f"\nDu befindest dich hier: {description[current_room]}",end='')
     else:
         raumwechsel_erfolgt = True
     hungerstatus = hungerstatus - 1
+    # Man kann verhungern ...
     if check_starvation(hungerstatus):
         current_room = None
         continue
-
-    # Ask what they want to do and validate it (north, south, east, west only)
+    # Ask what they want to do and validate it
     command = input("Which direction do you want to go? ").lower()
     while command not in allowed_directions:
         command = input("Which direction do you want to go? ").lower()
-    # Man kann verhungern ...
     if command == "quit":
         quit()      #   das Spiel freiwillig aufgeben :-/
         current_room = None
     elif command == "look":
         zeige_rauminhalt()
-    elif ( command == "take" ):
+    elif command == "take":
         if ( take(current_room) ):
             current_room = None     # you managed to die :-)
     # Wenn sonst nichts geht, kann man beten und bekommt neue Verbindungen.
@@ -249,7 +252,7 @@ while( current_room is not None ):
         # See if they are in the final room
         if current_room == final_room:
             result = input ("Willst du die Höhlen wirklich verlassen? [yes/No] ").lower()
-            if result == "yes" or result == "y":
+            if result in ['y', 'yes', 'j', 'ja']:
                 current_room = None # Ends the game loop
                 print("""
 Nach all den Stunden in diesen interessanten Höhlen voller wertvoller Schätze
