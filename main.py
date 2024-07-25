@@ -78,9 +78,9 @@ def zeige_rauminhalt():
 def quit():
     print ("Es knallt. Rauch steigt auf. Du fällst in Ohnmacht.")
     for i in range(3):      # default: 23 Sekunden, Debug: 3 Sekunden
-        time.sleep(1)
         print (".",end="")
         sys.stdout.flush()  # damit die Punkte einzeln erscheinen
+        time.sleep(1)
     print ("\n\nDu wachst auf einer Blumenwiese auf und fragst dich:")
     print ("War ich wirklich in diesen merkwürdigen Höhlen")
     print ("oder war das alles nur ein seltsamer Traum?")
