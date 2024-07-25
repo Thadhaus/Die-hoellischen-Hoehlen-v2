@@ -1,6 +1,6 @@
 # https://www.helloworld.cc - Heft 1 - Seite 52
 # Scary cave game -- Original Version CC BY-NC-SA 3.0
-# Diese modifizierte Version (C) 2022 Roland Härter r.haerter@wut.de
+# Diese modifizierte Version (C) 2024 Roland Härter r.haerter@wut.de
 #
 # Umgebaute Version von Ravenswood Manor. Hier ist kein Haus mehr,
 # sondern ein generiertes Set von Höhlen.
